@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio</title>
+   <style>
+/* Reset & Basic */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.8;
+    color: #1f2937; /* teks gelap untuk terbaca */
+    background: linear-gradient(145deg, #f9fafb, #e0f7fa); /* background cerah */
+    min-height: 100vh;
+}
+
+p {
+    margin-bottom: 1.5rem;
+    color: #374151; /* abu gelap */
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 280px;
+    height: 100vh;
+    background-color: #ffffff;
+    padding: 2rem 0;
+    box-shadow: 4px 0 25px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+    text-align: center;
+    padding: 0 2rem 2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4f46e5; /* ungu cerah */
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.logo-subtitle {
+    font-size: 0.9rem;
+    color: #6b7280; /* abu medium */
+}
+
+.nav-menu li {
+    margin: 0.5rem 0;
+}
+
+.nav-menu a {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    color: #6b7280;
+    font-weight: 500;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: #4f46e5;
+    background: rgba(79,70,229,0.1);
+    border-left-color: #4f46e5;
+    transform: translateX(5px);
+}
+
+.nav-icon {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+/* Mobile Toggle */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background: #4f46e5;
+    border: none;
+    padding: 12px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: none;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 280px;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Section */
+.section {
+    display: none;
+    min-height: 100vh;
+    padding: 60px 0;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 120px 0;
+    background: linear-gradient(135deg, #fff7ed, #dbeafe);
+    color: #1f2937;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    line-height: 1.3;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.hero p {
+    font-size: 1.3rem;
+    color: #4b5563;
+    margin-top: 1rem;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #4f46e5;
+    color: #ffffff;
+    padding: 15px 40px;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 2px solid #7c3aed;
+    font-weight: 600;
+    transition: all 0.4s ease;
+}
+
+.cta-button:hover {
+    background-color: #7c3aed;
+    box-shadow: 0 10px 30px rgba(79,70,229,0.3);
+    transform: translateY(-4px);
+}
+
+/* Content Section */
+.content-section {
+    background-color: #ffffff;
+    color: #1f2937;
+    border-radius: 25px;
+    padding: 3rem;
+    margin: 2rem 0;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+.section-title {
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #4f46e5;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(45deg, #f97316, #4f46e5); /* gradient cerah */
+    border-radius: 2px;
+}
+
+/* Profile / About */
+.profile-img img {
+    width: 220px;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 15px 40px rgba(79,70,229,0.2);
+}
+
+.about-text h3 {
+    color: #4f46e5;
+}
+
+.about-text p {
+    color: #4b5563;
+}
+
+/* Skill Cards */
+.skill {
+    background-color: #e0f2fe; /* biru pastel */
+    color: #1f2937;
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.skill:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(79,70,229,0.2);
+}
+
+/* Footer */
+.footer {
+    background-color: #f3f4f6;
+    color: #374151;
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.footer-links a {
+    color: #4f46e5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #7c3aed;
+}
+
+.footer-copy {
+    margin-top: 8px;
+    color: #6b7280;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.active { transform: translateX(0); }
+    .main-content { margin-left: 0; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .content-section { padding: 2rem; margin: 1rem 0; }
+    .section-title { font-size: 2.2rem; }
+}
+
+/* Sertifikat Section */
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.certificate-card {
+    background: #fef3c7; /* kuning pastel */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    border: 1px solid rgba(79,70,229,0.2);
+}
+
+.certificate-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 60px rgba(79,70,229,0.2);
+}
+
+.certificate-img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+    background-color: #fef3c7;
+}
+
+.certificate-info {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.certificate-info h3 {
+    color: #4f46e5;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.certificate-info p {
+    color: #374151;
+    font-size: 1rem;
+}
+
+/* Kontak Section */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color: #e0f2fe; /* biru pastel */
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(79,70,229,0.2);
+}
+
+.contact-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(79,70,229,0.2);
+}
+
+.contact-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #f97316, #4f46e5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    color: #4f46e5;
+    font-size: 1.1rem;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 1.2rem;
+    border: 2px solid rgba(79,70,229,0.2);
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f3f4f6;
+    color: #1f2937;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #6b7280;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 4px rgba(79,70,229,0.1);
+    background: #ffffff;
+    color: #1f2937;
+}
+
+.submit-btn {
+    background: linear-gradient(45deg, #f97316, #4f46e5);
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(79,70,229,0.2);
+}
+
+/* Responsif Kontak */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" onclick="toggleSidebar()">
+        <span style="font-size: 1.5rem;">☰</span>
+    </button>
+
+    <!-- Overlay untuk mobile -->
+    <div class="overlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+           <a href="#" class="logo">Portofolio</a>
+        <div class="logo-subtitle">Frontend Developer & IoT Enthusiast</div>
+
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#" onclick="showSection('beranda')" class="nav-link active">
+                <span class="nav-icon"></span>Beranda
+            </a></li>
+            <li><a href="#" onclick="showSection('tentang')" class="nav-link">
+                <span class="nav-icon"></span>Tentang Saya
+            </a></li>
+            <li><a href="#" onclick="showSection('proyek')" class="nav-link">
+                <span class="nav-icon"></span>Proyek
+            </a></li>
+            <li><a href="#" onclick="showSection('sertifikat')" class="nav-link">
+                <span class="nav-icon"></span>Sertifikat
+            </a></li>
+
+            <li><a href="#" onclick="showSection('kontak')" class="nav-link">
+                <span class="nav-icon"></span>Kontak
+            </a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Beranda Section -->
+        <section id="beranda" class="section active">
+            <div class="container">
+                <div class="hero">
+                    <h1>Selamat Datang di Portofolio Rejeki Lumban Batu</h1>
+                    <p>Saya adalah seorang mahasiswa. Tingkat Akhir D3 Teknologi Komputer</p>
+                    <p>Institut Teknologi Komputer</p>
+                    <a href="#" onclick="showSection('tentang')" class="cta-button">Pelajari Lebih Lanjut</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tentang Saya Section -->
+        <section id="tentang" class="section">
+            <div class="container">
+                <div class="content-section">
+                    <h2 class="section-title">Tentang Saya</h2>
+                    <div class="about-grid">
+                        <div class="profile-img">
+                             <img src="jek.jpeg" alt="Foto Rejeki Adi Putra Lumban Batu">
+                        </div>
+                        <div class="about-text">
+                             <h3>Halo! Saya Rejeki Adi Putra Lumban Batu</h3>
+                        <p>Saya adalah seorang mahasiswa Teknologi Komputer yang memiliki minat dalam pengembangan website frontend dan sistem berbasis Internet of Things (IoT). Saya suka membangun antarmuka yang modern, responsif, dan mudah digunakan, serta merancang perangkat otomatisasi menggunakan Arduino maupun ESP32.</p>
+                        <p>Saat ini saya terus mengembangkan keterampilan di bidang web development dan IoT, serta sedang mencari kesempatan magang untuk mendapatkan pengalaman industri dan memperluas kemampuan teknis saya.</p>
+                        </div>
+                    
+                    <h3 style="color: #764ba2; margin: 3rem 0 2rem; text-align: center; font-size: 2rem;">Keahlian Saya</h3>
+
+<div class="skills">
+
+    <div class="skill">
+        <h4>Frontend Development</h4>
+        <p>HTML, CSS, JavaScript, Responsive Design</p>
+    </div>
+
+    <div class="skill">
+        <h4>Web Programming</h4>
+        <p>PHP, MySQL, REST API (Basic)</p>
+    </div>
+
+    <div class="skill">
+        <h4>Internet of Things (IoT)</h4>
+        <p>Arduino, ESP32/ESP8266, Sensor & Actuator Integration</p>
+    </div>
+
+    <div class="skill">
+        <h4>Automation Systems</h4>
+        <p>Relay Control, Motor & Fan Control, Ultrasonic Sensors</p>
+    </div>
+
+    <div class="skill">
+        <h4>Electronic Prototyping</h4>
+        <p>Wiring, Soldering, PCB Basic, Module Testing</p>
+    </div>
+
+    <div class="skill">
+        <h4>Design Tools</h4>
+        <p>SolidWorks (Basic–Intermediate), Fritzing</p>
+    </div>
+
+</div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proyek Section -->
+<section id="proyek" class="section">
+  <div class="container">
+    <div class="content-section">
+      <h2 class="section-title">Proyek Saya</h2>
+
+      <!-- Grid Proyek -->
+      <div class="projects-grid">
+
+        <!-- Proyek 1 -->
+    <div class="project-card">
+        <div class="project-img">
+        <img src="pa1.png" alt="Website Tokke Jagung" style="width:100%; border-radius:10px;">
+    </div>
+    <div class="project-info">
+       <h3>Prediksi Harga Komoditi Jagung</h3>
+        <p>Website untuk memantau harga jagung harian, mingguan, dan tahunan serta menampilkan prediksi harga berdasarkan data historis. Sistem ini membantu petani dan pedagang membuat keputusan jual beli dengan lebih baik.</p>
+        <p><strong>Teknologi:</strong> HTML, CSS, JavaScript, PHP, MySQL</p>
+    </div>
+    </div>
+
+
+   <!-- Proyek 2 -->
+<div class="project-card">
+    <div class="project-img">
+        <img src="suku jawa.png" alt="Website Suku Jawa" style="width:100%; border-radius:10px;">
+    </div>
+    <div class="project-info">
+        <h3>Website Informasi Budaya Suku Jawa</h3>
+        <p>Website statis yang menampilkan sejarah, adat istiadat, kuliner, tempat wisata, dan kalender tradisional Suku Jawa dengan tampilan modern dan responsif.</p>
+        <p><strong>Teknologi:</strong> HTML, CSS, JavaScript, PHP, MySQL</p>
+
+    </div>
+</div>
+
+
+
+        <!-- Proyek 3 -->
+<div class="project-card">
+  <div class="project-img">
+    <img src="pa2.png" alt="Sistem Pemberi Pakan Ayam Otomatis" style="width:100%; border-radius:10px;">
+  </div>
+  <div class="project-info">
+     <h3>Sistem Pemberi Pakan Ayam Otomatis Berbasis IoT</h3>
+    <p>Sistem IoT untuk memberi pakan ayam secara otomatis dan manual melalui aplikasi Blynk, serta memonitor kondisi pakan dan air dari smartphone.</p>
+    <p><strong>Teknologi:</strong> Arduino, ESP32/8266, Blynk, Sensor Ultrasonik, Relay</p>
+
+  </div>
+</div>
+
+
+            <!-- Proyek 4 -->
+        <div class="project-card">
+            <div class="project-img">
+                <img src="sistan6.png" alt="Sistem Pengering Tangan Otomatis" style="width:100%; border-radius:10px;">
+             </div>
+         <div class="project-info">
+        <h3>Sistem Pengering Tangan Otomatis</h3>
+        <p>Alat pengering tangan otomatis menggunakan sensor ultrasonik untuk mendeteksi tangan dan mengaktifkan kipas melalui relay yang dikendalikan oleh Arduino Mega.</p>
+        <p><strong>Teknologi:</strong> Arduino Mega, Sensor Ultrasonik, Relay, Fan DC</p>
+        </div>
+    </div>
+
+    <!-- Proyek 5 -->
+<div class="project-card">
+    <div class="project-img">
+        <img src="lora_toba.png" alt="Sistem Pendeteksi Ketinggian Air Danau Toba" style="width:100%; border-radius:10px;">
+    </div>
+    <div class="project-info">
+         <h3>Sistem Pendeteksi Ketinggian Air Danau Toba</h3>
+<p>Sistem IoT berbasis LoRa untuk memonitor ketinggian air dan kecepatan angin secara real-time menggunakan sensor JSN-SR04T dan anemometer, dengan data dikirim ke dashboard web.</p>
+<p><strong>Teknologi:</strong> LoRa, ESP32, JSN-SR04T, Anemometer, Panel Surya</p>
+
+    </div>
+</div>
+
+
+
+
+        
+        
+          </div>
+          </div>
+          </div>
+            <!-- Galeri Saya -->
+<h2 class="section-title">Galeri Saya</h2>
+
+<div class="galeri-grid">
+
+  <div class="galeri-card">
+    <div class="galeri-img">
+      <img src="desain.png" alt="Desain 1">
+      <center><h3>Desain 1</h3></center>
+    </div>
+  </div>
+
+  <div class="galeri-card">
+    <div class="galeri-img">
+      <img src="desain2.png" alt="Desain 2">
+      <center><h3>Tandon Air</h3></center>
+    </div>
+  </div>
+
+  <div class="galeri-card">
+    <div class="galeri-img">
+      <img src="esp32.png" alt="ESP32">
+      <center><h3>ESP32</h3></center>
+    </div>
+  </div>
+
+  <div class="galeri-card">
+    <div class="galeri-img">
+      <img src="geer1.png" alt="Gear">
+      <center><h3>Gear</h3></center>
+    </div>
+  </div>
+
+  <div class="galeri-card">
+    <div class="galeri-img">
+      <img src="panel surya.png" alt="Panel Surya">
+      <center><h3>Panel Surya</h3></center>
+    </div>
+  </div>
+
+  <div class="galeri-card">
+    <div class="galeri-img">
+      <img src="arduino uno.png" alt="Arduino Uno">
+      <center><h3>Arduino Uno</h3></center>
+    </div>
+  </div>
+
+  <div class="galeri-card">
+    <div class="galeri-img">
+      <img src="alat .png" alt="Panel Surya">
+      <center><h3>Alat Proyek2</h3></center>
+    </div>
+  </div>
+  
+  <div class="galeri-card">
+    <div class="galeri-img">
+      <img src="dht22.png" alt="Arduino Uno">
+      <center><h3>Dht22</h3></center>
+    </div>
+  </div>
+
+  <div class="galeri-card">
+    <div class="galeri-img">
+      <img src="ultrasonik.png" alt="Panel Surya">
+      <center><h3>Ultrasonik</h3></center>
+    </div>
+  </div>
+
+  <div class="galeri-card">
+    <div class="galeri-img">
+      <img src="hengsel.png" alt="Arduino Uno">
+      <center><h3>Hengsel</h3></center>
+    </div>
+  </div>
+
+  <div class="galeri-card">
+    <div class="galeri-img">
+      <img src="Pengirim.png" alt="Panel Surya">
+      <center><h3>Alat TA pengirim</h3></center>
+    </div>
+  </div>
+
+  <div class="galeri-card">
+    <div class="galeri-img">
+      <img src="Penerima.png" alt="Arduino Uno">
+      <center><h3>Alat TA penerima</h3></center>
+    </div>
+  </div>
+
+  <div class="galeri-card">
+    <div class="galeri-img">
+      <img src="kipas.png" alt="Panel Surya">
+      <center><h3>Kipas</h3></center>
+    </div>
+  </div>
+</div>
+
+</div>
+
+</section>
+
+        <!-- Sertifikat saya -->
+         <!-- Sertifikat Section -->
+<section id="sertifikat" class="section">
+    <div class="container">
+        <div class="content-section">
+            <h2 class="section-title">Sertifikat Saya</h2>
+
+            <div class="certificates-grid">
+                <!-- Sertifikat 1 -->
+                <div class="certificate-card">
+                    <img src="sertifikat1.png" alt="Sertifikat 1" class="certificate-img">
+                    <div class="certificate-info">
+                    <h3>SolidWorks (CAD & Mechanical Design)</h3>
+                    <p>Diberikan oleh Udemy • 2025</p>
+                        
+                    </div>
+                </div>
+
+                <!-- Sertifikat 2 -->
+                <div class="certificate-card">
+                    <img src="sertifikat2.png" alt="Sertifikat 2" class="certificate-img">
+                    <div class="certificate-info">
+                       <h3>Cybersecurity & IoT</h3>
+                    <p>Diberikan oleh Merdeka Siber • 2025</p>
+                    </div>
+                </div>
+
+                <!-- Sertifikat 3 -->
+                <div class="certificate-card">
+                    <img src="sertifikat3.png" alt="Sertifikat 3" class="certificate-img">
+                    <div class="certificate-info">
+                    <h3>Threat Hunting & Cybersecurity</h3>
+                     <p>Diberikan oleh Merdeka Siber • 2025</p>
+                    </div>
+                </div>
+
+
+
+               <!-- Sertifikat 4 -->
+<div class="certificate-card">
+  <img src="sertifikat4.png" alt="Python Essentials 1 - Cisco Networking Academy" class="certificate-img">
+  <div class="certificate-info">
+    <h3>Python Essentials 1</h3>
+    <p>Diterbitkan oleh <b>Cisco Networking Academy</b> bekerja sama dengan <b>OpenEDG Python Institute</b> • November 2025</p>
+  </div>
+</div>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+
+<!-- Kontak Section -->
+<section id="kontak" class="section">
+    <div class="container">
+        <div class="content-section">
+            <h2 class="section-title">Hubungi Saya</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h4 style="color: #764ba2; margin-bottom: 0.5rem;">Email</h4>
+                            <p>rejekilumbanbatu3@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <h4 style="color: #764ba2; margin-bottom: 0.5rem;">Telepon</h4>
+                            <p>+62 1368101809</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h4 style="color: #764ba2; margin-bottom: 0.5rem;">Lokasi</h4>
+                            <p>Medan, Sumatera Utara</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div>
+                            <h4 style="color: #764ba2; margin-bottom: 0.5rem;">LinkedIn</h4>
+                            <p><a href="https://www.linkedin.com/in/rejeki-lumban-batu-154a07319" target="_blank" style="color:#333; text-decoration:none;">linkedin.com/in/rejeki-lumban-batu-154a07319</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORM KONTAK YANG BENAR -->
+                <form action="https://formspree.io/f/xnnoezna" method="POST">
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" name="nama" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subjek">Subjek</label>
+                        <input type="text" id="subjek" name="subjek" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pesan">Pesan</label>
+                        <textarea id="pesan" name="pesan" rows="5" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+const form = document.querySelector("form");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = new FormData(form);
+  const response = await fetch(form.action, {
+    method: form.method,
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  });
+  if (response.ok) {
+    alert("Pesan berhasil dikirim! Terima kasih sudah menghubungi saya 🙌");
+    form.reset();
+  } else {
+    alert("Ups! Terjadi kesalahan, coba lagi ya Bang Jek.");
+  }
+});
+</script>
+
+
+                   
+    </main>
+
+    <script>
+        function showSection(sectionName) {
+            // Sembunyikan semua section
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Tampilkan section yang dipilih
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Tutup sidebar di mobile setelah navigasi
+            if (window.innerWidth <= 768) {
+                closeSidebar();
+            }
+        }
+        
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+        
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+        
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const nama = document.getElementById('nama').value;
+            const email = document.getElementById('email').value;
+            const subjek = document.getElementById('subjek').value;
+            const pesan = document.getElementById('pesan').value;
+            
+            alert(`Terima kasih ${nama}! Pesan Anda telah terkirim. Saya akan segera menghubungi Anda kembali.`);
+            
+            // Reset form
+            document.querySelector('.contact-form').reset();
+        }
+        
+        // Auto close sidebar saat resize window
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeSidebar();
+            }
+        });
+
+
+        
+        
+    </script>
+    <footer class="footer">
+  <div class="footer">
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/rejeki-lumban-batu-154a07319" target="_blank">LinkedIn</a> |
+    <a href="https://www.instagram.com/rejeki_lb/" target="_blank">Instagram</a> |
+    <a href="mailto:rejekilumbanbatu3@gmail.com" target="_blank">Email</a>
+  </div>
+  <div class="footer-copy">
+    © 2025 Rejeki Lumban Batu. All Rights Reserved.
+  </div>
+</div>
+
+</footer>    
+</body>
+</html>
